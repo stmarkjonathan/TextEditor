@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="TextEditor.Views.UserControls.MenuBar"
+             x:Name="menuUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TextEditor.Views.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Menu Loaded="UC_MenuBar_Loaded">
+        <Menu.Resources>
+            <Style x:Key="MenuButton" TargetType="MenuItem">
+                <Setter Property="Command"
+                        Value="{Binding Perform,RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"/>
+                
+                <Setter Property="CommandParameter" 
+                    Value="{Binding Path=Tag, RelativeSource={RelativeSource Self}}"/>
+            </Style>
+        </Menu.Resources>
+        <MenuItem Header="File" ItemContainerStyle="{StaticResource MenuButton}">
+            <MenuItem Header="New" Tag="NewTab" />
+            <MenuItem Header="Open" Tag="OpenFile"/>
+        </MenuItem>
+
+        <MenuItem Header="Edit" ItemContainerStyle="{StaticResource MenuButton}">
+            <MenuItem Header="Undo" Tag="UndoText"/>
+            <MenuItem Header="Redo" Tag="RedoText"/>
+            <MenuItem Header="Cut" Tag="CutText"/>
+            <MenuItem Header="Copy" Tag="CopyText"/>
+            <MenuItem Header="Paste" Tag="PasteText"/>
+            <MenuItem  Header="Delete" Tag="DeleteText"/>
+        </MenuItem>
+    </Menu>
+</UserControl>

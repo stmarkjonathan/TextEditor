@@ -1,0 +1,83 @@
+﻿<Window x:Class="TextEditor.MainWindow"
+        x:Name="Main"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:uc="clr-namespace:TextEditor.Views.UserControls"
+        xmlns:local="clr-namespace:TextEditor"
+        mc:Ignorable="d"
+        Loaded="IntializeMenuOptions"
+        Title="Text Editor" 
+        Height="450" 
+        Width="800">
+    <Window.InputBindings>
+        <KeyBinding Modifiers="Control"
+                    Key="S"
+                    Command="{Binding SaveCommand}">
+
+        </KeyBinding>
+    </Window.InputBindings>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <uc:MenuBar Grid.Row="0"/>
+
+        <uc:IconBar Grid.Row="1"/>
+
+        <TabControl x:Name="tabControl"
+                    d:ItemsSource="{d:SampleData ItemCount=3}"
+                    ItemsSource="{Binding Instances}"
+                    Grid.Row="2"
+                    SelectedIndex="{Binding ActiveTabID}">
+            <TabControl.ItemTemplate>
+                <!-- Tab Header template-->
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Column="0" Content="{Binding Tab.FileName, UpdateSourceTrigger=PropertyChanged}"/>
+
+                        <Button Grid.Column="1" Background="Transparent" BorderBrush="Transparent" MaxWidth="24" MaxHeight="24" Command="{Binding DataContext.DeleteCommand, ElementName=tabControl}" CommandParameter="{Binding}">
+                            <Image Source="/Resources/Icons/closeTabIcon.ico" />
+                        </Button>
+                    </Grid>
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+            <TabControl.ContentTemplate>
+                <!-- Tab content template -->
+                <DataTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="5*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBox x:Name="tabTextBox"
+                                    Grid.Row="0" 
+                                    Text="{Binding Tab.FileContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    AcceptsReturn="True" 
+                                    AcceptsTab="True"
+                                    BorderThickness="1"
+                                    VerticalScrollBarVisibility="Visible"
+                                    HorizontalScrollBarVisibility="Visible">
+                        </TextBox>
+                        <StackPanel Grid.Row="2" Orientation="Horizontal">
+                            <!-- Tab Information -->
+                            <Label Content="{Binding Tab.CharCount}" ContentStringFormat="Total Characters: {0}"/>
+                            <Label Content="{Binding Tab.WordCount}" ContentStringFormat="Word Count: {0}"/>
+                        </StackPanel>
+
+
+                    </Grid>
+                </DataTemplate>
+            </TabControl.ContentTemplate>
+        </TabControl>
+    </Grid>
+</Window>
