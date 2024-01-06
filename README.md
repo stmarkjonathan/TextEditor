@@ -9,4 +9,5 @@ A simple text editor with the ability to save, open, and edit text files.
   
 Written in C#, and compiled in .NET 6.0.
 #
-![image](https://github.com/stmarkjonathan/TextEditor/assets/98546985/a0c70fb0-4b8c-49fd-8aea-3baac5fb6740)
+![image](https://github.com/stmarkjonathan/TextEditor/assets/98546985/26e144d1-1502-4e77-a7b2-83e5105fc85e)
+
